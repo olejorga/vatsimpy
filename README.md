@@ -1,1 +1,1 @@
-# vatsim.py (To be fixed to support the new vatsim API)
+# Vatsim.py (To be fixed to support the new vatsim API)
