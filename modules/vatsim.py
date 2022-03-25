@@ -31,7 +31,7 @@ class Vatsim:
         """
         
         # URLs and paths to the vatsim data
-        self.live_data_url = "http://cluster.data.vatsim.net/vatsim-data.json"
+        self.live_data_url = "https://data.vatsim.net/v3/vatsim-data.json"
         self.test_data_path = "data/vatsim-data.json"
         self.cached_data_path = "cache/vatsim.json"
 
@@ -266,11 +266,8 @@ class Vatsim:
         # (always do this, incase method is called by itself)
         self.__is_data_outdated()
 
-        # Get the clients list from the vatsim data dict
-        clients = self.vatsim_data['clients']
-
-        # Filter for and return all flights
-        return list(filter(lambda c: (c['clienttype'] == 'PILOT'), clients))
+        # Return all the pilots on the network
+        return self.vatsim_data['pilots']
 
     def get_flights_by_dep(self, icao):
         """
@@ -291,8 +288,16 @@ class Vatsim:
         # Get all flights on the network
         flights = self.get_flights()
 
-        # Return flights departing specified airport
-        return list(filter(lambda c: (c['planned_depairport'] == icao), flights))
+        # Find all flights departing the specified airport
+        departures = []
+
+        for flight in flights:
+            if flight['flight_plan']:
+                if flight['flight_plan']['departure'] == icao:
+                    departures.append(flight)
+
+        # Return departing flights
+        return departures
 
     def get_flights_by_dest(self, icao):
         """
@@ -313,8 +318,16 @@ class Vatsim:
         # Get all flights on the network
         flights = self.get_flights()
 
-        # Return flights departing specified airport
-        return list(filter(lambda c: (c['planned_destairport'] == icao), flights))
+        # Find all flights arriving at the specified airport
+        arrivals = []
+
+        for flight in flights:
+            if flight['flight_plan']:
+                if flight['flight_plan']['arrival'] == icao:
+                    arrivals.append(flight)
+
+        # Return arriving flights
+        return arrivals
 
     """
     EXTRA METHODs

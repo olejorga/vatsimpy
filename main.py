@@ -67,11 +67,11 @@ def main():
             # Create a row for each flight in each table
             for dep in dep_flights:
                 dep_table.add_row(
-                    [dep['callsign'], dep['planned_destairport']]
+                    [dep['callsign'], dep['flight_plan']['arrival']]
                 )         
             for arr in arr_flights:
                 arr_table.add_row(
-                    [arr['callsign'], arr['planned_depairport']]
+                    [arr['callsign'], arr['flight_plan']['departure']]
                 )
 
             # Render tables to cli
