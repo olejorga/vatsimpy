@@ -1,4 +1,4 @@
-# VATSIM.py
+# VATSIM
 A small app for viewing vatsim traffic - part of a exam in Programming at HiØ, written with love in Python <3
 
 ## Setup
