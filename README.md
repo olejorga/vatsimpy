@@ -15,3 +15,6 @@ python3 main.py
 
 ## How to use
 When promted, provide an airports' ICAO identification code. For instance, London Heathrow is `EGLL`.
+
+## Getting started
+Read the [project report](report.pdf) (norwegian) for more information.
